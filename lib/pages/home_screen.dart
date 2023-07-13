@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ssbook/graphql_service.dart';
 
+import '../models/author_model.dart';
 import '../models/book_model.dart';
 
 
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   List<Book>? _books;
+  List<Author>? _author;
   GraphQLService _graphQLService = GraphQLService();
   @override
   void initState() {
@@ -24,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void _load() async {
     _books = null;
     _books = await _graphQLService.getFavoriteBooks(limit: 10);
+    _author = null;
+    _author = await _graphQLService.getAuthors(limit: 10);
     setState(() {
 
     });
@@ -93,44 +97,120 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                 SizedBox(height: 30),
                 Container(
-                  padding: const EdgeInsets.only(left: 40),
-                  height: 306,
-                  width: double.maxFinite,
+                  padding: const EdgeInsets.only(left: 10),
+                  height: 400,
+                  width: 360,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
+                      Column(
+                        children: [
+                        Container(
+                        height: 24,
+                        width: 320,
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Livros Favoritos"),
+                              Text("ver todos")
+                            ],
+                          ),
+                        ),
+                      // ),
+                       SizedBox(height: 20),
+                      Container(
+                        height: 262,
+                        width: double.maxFinite,
+                        child: ListView.builder(
+                          itemCount: _books!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              height: 262,
+                              width: 136,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 15, top: 10),
+                                    width: 198,
+                                    height: 136,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.grey,
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                '${_books![index].cover}'
+                                            ),
+                                          fit:BoxFit.cover
+                                        )
+                                    ),
+                                  ),
+                                  Text('${_books![index].name}'),
+                                  Text('${_books![index].author.name}')
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 20),
                       Container(
                         margin: const EdgeInsets.only(left: 20, right: 20),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Livros Favoritos"),
-                            Text("ver todos")
+                            Text("Autores Favoritos"),
+                            Text("ver todos"),
                           ],
                         ),
                       ),
+                      SizedBox(height: 20),
                       ListView.builder(
-                        itemCount: _books!.length,
+                        itemCount: _author!.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            margin: const EdgeInsets.only(right: 15, top: 10),
-                            width: 200,
-                            height: 262,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        '${_books![index].cover}'
-                                    )
-                                )
+                            height: 69,
+                            width: double.maxFinite,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 67,
+                                  height: 63,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              '${_author![index].picture}'
+                                          ),
+                                          fit:BoxFit.cover
+                                      )
+                                  ),
+                                ),
+                                Column(
+                                    children: [
+                                    Text('${_author![index].name}'),
+                                    Text('${_author![index].bookscount} livros')
+                                 ]
+                                ),
+                              ],
                             ),
                           );
                         },
+                      ),
+                      SizedBox(height: 20),
+                      Text('Bibilioteca'),
+                      SizedBox(height: 20),
+                      Container(
+
                       )
+                    ],
+                  ),
+
                     ],
                   ),
                 ),

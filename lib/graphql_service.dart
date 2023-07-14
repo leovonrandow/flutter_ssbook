@@ -8,9 +8,7 @@ class GraphQLService {
   static GraphQLConfig graphQLConfig = GraphQLConfig();
   GraphQLClient client = graphQLConfig.clientToQuery();
 
-  Future<List<Book>> getFavoriteBooks({
-    required int limit,
-  }) async {
+  Future<List<Book>> getFavoriteBooks() async {
     try {
       QueryResult result = await client.query(
         QueryOptions(
@@ -19,32 +17,27 @@ class GraphQLService {
            query getFavoriteBooks{
                 favoriteBooks {
                   name
-                  author {
-                    name
-                  }
+
                   cover
                 }
               }
             """),
-           variables: {
-             'limit': limit,
-           },
         ),
       );
 
       if (result.hasException) {
         throw Exception(result.exception);
       } else {
-        List? res = result.data?['getFavoriteBooks'];
+        List? res = result.data?['favoriteBooks'];
 
         if (res == null || res.isEmpty) {
           return [];
         }
 
-        List<Book> feelings =
-            res.map((feeling) => Book.fromMap(map: feeling)).toList();
+        List<Book> books =
+            res.map((book) => Book.fromMap(map: book)).toList();
 
-        return feelings;
+        return books;
       }
     } catch (error) {
       return [];

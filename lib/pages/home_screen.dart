@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ssbook/graphql_service.dart';
+import 'package:flutter_ssbook/app_bar.dart';
+import 'package:flutter_ssbook/category.dart';
+import 'package:flutter_ssbook/components/bottom_nav_bar.dart';
+import 'package:flutter_ssbook/favoriteauthors.dart';
 
 import '../models/author_model.dart';
 import '../models/book_model.dart';
-
+import 'package:flutter_ssbook/query_favoritebooks.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -14,63 +17,55 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-
-  GraphQLService _graphQLService = GraphQLService();
-  List<Book>? _books;
-  List<Author>? _author;
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-  void _load() async {
-    _books = null;
-    _books = await _graphQLService.getFavoriteBooks();
-    _author = null;
-    _author = await _graphQLService.getAuthors(limit: 10);
-    setState(() {
-
-    });
-  }
-
-
   var height, width;
 
   @override
   Widget build(BuildContext context) {
     TabController _tabController = TabController(length: 2, vsync: this);
-    height = MediaQuery
-        .of(context)
-        .size
-        .height;
-    width = MediaQuery
-        .of(context)
-        .size
-        .width;
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: _books == null ? const Center(child: CircularProgressIndicator()) : _books!.isEmpty ? const Center(child: Text('No Books')) :
-        ListView.builder(itemCount: _books!.length, itemBuilder: (context, index) =>
+        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            MyAppBar(),
+          SizedBox(height: 25),
             Container(
-              margin: const EdgeInsets.only(right: 15, top: 10),
-              width: 198,
-              height: 136,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.grey,
-                  image: DecorationImage(image: NetworkImage('${_books![index].cover}'),
-                      fit:BoxFit.cover
-                  )
+              margin: const EdgeInsets.only(left: 20, right: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Livros Favoritos"),
+                  Text("ver todos"),
+                ],
               ),
             ),
-        ),
+          SizedBox(height: 20),
 
-        //                       scrollDirection: Axis.horizontal,
-      ),
+            FavoriteBooks(),
+
+          SizedBox(height: 40),
+          Container(
+            margin: const EdgeInsets.only(left: 20, right: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Autores Favoritos"),
+                Text("ver todos"),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+            FavoriteAuthors(),
+          SizedBox(height: 20),
+            Text("Biblioteca"),
+          SizedBox(height: 20),
+            Category(),
+          FavoriteBooks(),
+            BottomNavBar(),
+          ],
+        )
     );
-
+    ;
 
     // return Scaffold(
     //   body: Column(
@@ -120,30 +115,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     //                 ),
     //               ),
     //             ),
-    //              SizedBox(height: 30),
-    //             Container(
-    //               padding: const EdgeInsets.only(left: 10),
-    //               height: 400,
-    //               width: 360,
-    //               child: TabBarView(
-    //                 controller: _tabController,
-    //                 children: [
-    //                   Column(
-    //                     children: [
-    //                     Container(
-    //                     height: 24,
-    //                     width: 320,
-    //                     margin: const EdgeInsets.only(left: 10, right: 10),
-    //                       child: Row(
-    //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                         children: [
-    //                           Text("Livros Favoritos"),
-    //                           Text("ver todos")
-    //                         ],
-    //                       ),
-    //                     ),
-    //                   // ),
-    //                    SizedBox(height: 20),
+
     //                   Container(
     //                     height: 262,
     //                     width: double.maxFinite,
@@ -241,4 +213,3 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // );
   }
 }
-

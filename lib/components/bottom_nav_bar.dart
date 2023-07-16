@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ssbook/theme/app_theme_colors.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -15,13 +16,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
-        selectedItemColor: Color.fromRGBO(160, 118, 242, 1),
-        unselectedItemColor:  Color.fromRGBO(158, 158, 158, 1),
-        items: [
+        showSelectedLabels: false,
+        selectedItemColor: AppColors.colors.purple,
+        unselectedItemColor:  AppColors.colors.labelgrey,
+        items:  [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Início"),
           BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: "Adicionar"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Buscar"),
-          BottomNavigationBarItem(icon: Icon(Icons.heart_broken), label: "Favoritos"),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Favoritos"),
         ],
       ),
     );

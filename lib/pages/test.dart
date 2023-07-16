@@ -1,3 +1,4 @@
+import 'package:flutter_ssbook/components/category_scroll.dart';
 import 'package:flutter_ssbook/components/tab_bar_container.dart';
 import 'package:flutter_ssbook/components/tittles_row.dart';
 import 'package:flutter_ssbook/favoriteauthors.dart';
@@ -38,6 +39,7 @@ class _TestPageState extends State<TestPage> {
           body:
           Container(
             height: height,
+           width: width,
             child: Column(
               children: [
                 Container(
@@ -78,9 +80,16 @@ class _TestPageState extends State<TestPage> {
                 SizedBox(height: 20),
                  FavoriteBooks(),
                  TittlesRow(text: 'Autores Favoritos',),
-                 SizedBox(height: 20),
+                  SizedBox(height: 20),
                 FavoriteAuthors(),
-                SizedBox(height: 30),
+                SizedBox(height: 20),
+                 Container(
+                   alignment: Alignment.centerLeft,
+                     margin: const EdgeInsets.only(left: 20, right: 20),
+                     child: AppLargeText(text: "Biblioteca")
+                 ),
+                 SizedBox(height: 20),
+                CategoryScroll()
                 //FavoriteAuthors()
 
 

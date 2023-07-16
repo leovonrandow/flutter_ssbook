@@ -42,61 +42,81 @@ class _FavoriteAuthors extends State<FavoriteAuthors> {
     //       }
 
     return Container(
-        height: 67,
-        width: double.maxFinite,
-        margin: const EdgeInsets.only(left: 20),
-        child: ListView.builder(
-          itemCount: 2,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-              width: 248,
-              height: 63,
-              margin: const EdgeInsets.only(right: 20),
-              padding: const EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.colors.cardBorder, width: 1),
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                  ),
-              child: Row(
-                children: [
+      height: 67,
+      width: double.maxFinite,
+      margin: const EdgeInsets.only(left: 20),
+       child: ListView.builder(
+        itemCount: 3,
+         scrollDirection: Axis.horizontal,
+       itemBuilder: ( context, index) {
+           return Container(
+             width: 248,
+             height: 69,
+             margin: const EdgeInsets.only(right: 20),
+             padding: const EdgeInsets.only(right: 20),
+             decoration: BoxDecoration(
+              border: Border.all(color: AppColors.colors.cardBorder, width: 1),
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.white,
+                ),
+
+            child: Row(
+               crossAxisAlignment: CrossAxisAlignment.start,
+
+              children: [
+                 Container(
+                   margin: const EdgeInsets.only(right: 20),
+                   width: 63,
+                   height: 67,
+                   decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(15),
+                       image: DecorationImage(
+                           image: NetworkImage(
+                             // '${repositories[index]['picture']}'
+                               'https://sscdn.co/gcs/studiosol/2022/mobile/author/uncle-bob.jpg'
+                           ),
+                           fit: BoxFit.cover
+                       )
+                   ),
+                 ),
                   Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    width: 63,
+                    width: 140,
                     height: 67,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                        image: DecorationImage(
-                            image: NetworkImage(
-                              // '${repositories[index]['picture']}'
-                                'https://sscdn.co/gcs/studiosol/2022/mobile/author/uncle-bob.jpg'
-                            ),
-                            fit: BoxFit.cover
-                        )
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ItemTittleText(text: 'Connie Brockway'),
                         SizedBox(height: 5),
                         ItemSubtitleText(text: '6 livros')
-                        // Text(repositories[index]['name']),
-                        // Text("${repositories[index]['booksCount']} livros")
-                      ]
-                  ),
-                ],
-              ),
-            );
+                      ],
+                    ),
+                  )
 
-          },
-        )
+
+
+      //           Column(
+      //              mainAxisAlignment: MainAxisAlignment.center,
+      //               crossAxisAlignment: CrossAxisAlignment.start,
+      //               children: [
+      //                 ItemTittleText(text: 'Connie Brockway'),
+      //                 SizedBox(height: 5),
+      //                 ItemSubtitleText(text: '6 livros')
+      //                 // Text(repositories[index]['name']),
+      //                 // Text("${repositories[index]['booksCount']} livros")
+      //               ]
+      //           ),
+      //         ],
+      //       ),
+      //     );
+      //
+      //   },
+         ]
+       )
     );
-        // });
+    // });
   }
+    )
+    );
 }
-
-
+}

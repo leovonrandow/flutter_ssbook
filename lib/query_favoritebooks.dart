@@ -17,37 +17,37 @@ class FavoriteBooks extends StatefulWidget {
 class _FavoriteBooksState extends State<FavoriteBooks> {
   @override
   Widget build(BuildContext context) {
-    // return Query(
-    //     options: QueryOptions(
-    //       document: gql(Queries.readFavoriteBooks),
-    //       // this is the query string you just created
-    //       variables: {
-    //         'nRepositories': 50,
-    //       },
-    //       pollInterval: const Duration(seconds: 10),
-    //     ),
-    //     builder: (QueryResult result,
-    //         { VoidCallback? refetch, FetchMore? fetchMore }) {
-    //       if (result.hasException) {
-    //         return Text(result.exception.toString());
-    //       }
-    //
-    //       if (result.isLoading) {
-    //         return const Text('Loading');
-    //       }
-    //
-    //       List? repositories = result.data?['favoriteBooks'];
-    //
-    //       if (repositories == null) {
-    //         return const Text('No repositories');
-    //       }
+    return Query(
+        options: QueryOptions(
+          document: gql(Queries.readFavoriteBooks),
+          // this is the query string you just created
+          variables: {
+            'nRepositories': 50,
+          },
+          pollInterval: const Duration(seconds: 10),
+        ),
+        builder: (QueryResult result,
+            { VoidCallback? refetch, FetchMore? fetchMore }) {
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return const Text('Loading');
+          }
+
+          List? repositories = result.data?['favoriteBooks'];
+
+          if (repositories == null) {
+            return const Text('No repositories');
+          }
 
           return Container(
             height: 306,
             width: double.maxFinite,
             margin: const EdgeInsets.only(left: 20),
             child: ListView.builder(
-              itemCount: 3,
+              itemCount: repositories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                   // InkWell(
@@ -55,44 +55,56 @@ class _FavoriteBooksState extends State<FavoriteBooks> {
                   //     Navigator.push(context, MaterialPageRoute(builder:
                   //         (context) => DetailPage()));
                   //     },
-                    return Container(
-                      height: 262,
-                      width: 136,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 15, top: 10),
-                            width: 136,
-                            height: 198,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://sscdn.co/gcs/studiosol/2022/mobile/book/clean-code.jpg',
-                                        // '${repositories[index]['cover']}'),
-                                ),
-                                    fit: BoxFit.cover
-                            ),
-                          ),
-                          ),
-                          Container(
-                              height: 36,
+                    return InkWell(
+                      onTap: ( ) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) =>
+                          DetailPage()
+                          )
+                        );
+                      },
+                      child: Container(
+                        height: 262,
+                        width: 136,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(right: 15, top: 10),
                               width: 136,
-                                 child:
-                                 ItemTittleText(text: "O duque e eu (Os Bridgertons e o almanaque servio")
+                              height: 198,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey,
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                         // 'https://sscdn.co/gcs/studiosol/2022/mobile/book/clean-code.jpg',
+                                           '${repositories[index]['cover']}'),
+                                            fit: BoxFit.cover
+                                  ),
                               ),
-                          ItemSubtitleText(text: "Jobert Cecil Martin")
-                          // Text(repositories[index]['name']),
-                          // Text(repositories[index]['author']['name']),
-                        ]
+                            ),
+
+                            Container(
+                                height: 36,
+                                width: 136,
+                                   child:
+                                    ItemTittleText(text: repositories[index]['name']),
+                                   //ItemTittleText(text: "O duque e eu (Os Bridgertons e o almanaque servio")
+                                ),
+                            ItemTittleText(text: repositories[index]['author']['name'])
+                            //ItemSubtitleText(text: "Jobert Cecil Martin")
+
+                            // ItemTittleText(text: repositories[index]['name']),
+                            // ItemTittleText(text: repositories[index]['author']['name']),
+                          ]
+                        ),
                       ),
                     );
             }
             ),
           );
-       // });
+        });
   }
 }
 

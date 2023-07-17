@@ -34,5 +34,16 @@ class Queries{
                 userPicture
                 }
             """;
+
+  static const String readBook = """
+            query GetBook(\$bookId: ID!) {
+            book(id: \$bookId) {
+              cover
+              name
+              description
+            }
+          }
+        """;
+
 }
 

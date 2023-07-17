@@ -1,3 +1,4 @@
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_ssbook/components/category_scroll.dart';
 import 'package:flutter_ssbook/components/tab_bar_container.dart';
 import 'package:flutter_ssbook/components/tittles_row.dart';

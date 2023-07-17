@@ -7,7 +7,7 @@ class ItemDescTittle extends StatelessWidget {
   final Color? color;
 
   ItemDescTittle({super.key,
-    this.size = 16,
+    this.size = 20,
     required this.text,
     this.color
   });

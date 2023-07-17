@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return Scaffold(
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            MyAppBar(),
+            //MyAppBar(),
           SizedBox(height: 25),
             Container(
               margin: const EdgeInsets.only(left: 20, right: 15),

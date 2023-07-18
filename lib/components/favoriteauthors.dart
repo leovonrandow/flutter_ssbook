@@ -4,7 +4,9 @@ import 'package:flutter_ssbook/widgets/Texts/item_subtitltte_text.dart';
 import 'package:flutter_ssbook/widgets/Texts/item_tittle_text.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'Queries.dart';
+import '../Queries.dart';
+
+
 
 class FavoriteAuthors extends StatefulWidget {
   const FavoriteAuthors({super.key});
@@ -19,20 +21,12 @@ class _FavoriteAuthors extends State<FavoriteAuthors> {
     return Query(
         options: QueryOptions(
           document: gql(Queries.readFavoriteAuthors),
-          // this is the query string you just created
-          variables: {
-            'nRepositories': 50,
-          },
           pollInterval: const Duration(seconds: 10),
         ),
         builder: (QueryResult result,
             { VoidCallback? refetch, FetchMore? fetchMore }) {
           if (result.hasException) {
             return Text(result.exception.toString());
-          }
-
-          if (result.isLoading) {
-            return const Text('Loading');
           }
 
           List? repositories = result.data?['favoriteAuthors'];
@@ -57,7 +51,7 @@ class _FavoriteAuthors extends State<FavoriteAuthors> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: AppColors.colors.cardBorder, width: 1),
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
 
@@ -70,7 +64,7 @@ class _FavoriteAuthors extends State<FavoriteAuthors> {
                                 width: 63,
                                 height: 67,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(7),
                                     image: DecorationImage(
                                         image: NetworkImage(
                                             '${repositories[index]['picture']}'
@@ -95,24 +89,6 @@ class _FavoriteAuthors extends State<FavoriteAuthors> {
                                   ],
                                 ),
                               )
-
-
-                              //           Column(
-                              //              mainAxisAlignment: MainAxisAlignment.center,
-                              //               crossAxisAlignment: CrossAxisAlignment.start,
-                              //               children: [
-                              //                 ItemTittleText(text: 'Connie Brockway'),
-                              //                 SizedBox(height: 5),
-                              //                 ItemSubtitleText(text: '6 livros')
-                              //                 // Text(repositories[index]['name']),
-                              //                 // Text("${repositories[index]['booksCount']} livros")
-                              //               ]
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     );
-                              //
-                              //   },
                             ]
                         )
                     );

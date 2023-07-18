@@ -4,6 +4,7 @@ class Queries{
   static const String readFavoriteBooks = """
            query readRepositories{
                 favoriteBooks {
+                  id
                   cover
                   name
                   author{
@@ -40,6 +41,9 @@ class Queries{
             book(id: \$bookId) {
               cover
               name
+                  author{
+                name
+              }
               description
             }
           }

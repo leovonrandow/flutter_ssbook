@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ssbook/pages/detail_page.dart';
-import 'package:flutter_ssbook/pages/home_screen.dart';
 import 'package:flutter_ssbook/widgets/Texts/item_subtitltte_text.dart';
 import 'package:flutter_ssbook/widgets/Texts/item_tittle_text.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import 'Queries.dart';
+import '../Queries.dart';
+
+
 
 class FavoriteBooks extends StatefulWidget {
   const FavoriteBooks({super.key});
@@ -21,19 +22,12 @@ class _FavoriteBooksState extends State<FavoriteBooks> {
         options: QueryOptions(
           document: gql(Queries.readFavoriteBooks),
           // this is the query string you just created
-          variables: {
-            'nRepositories': 50,
-          },
           pollInterval: const Duration(seconds: 10),
         ),
         builder: (QueryResult result,
             { VoidCallback? refetch, FetchMore? fetchMore }) {
           if (result.hasException) {
             return Text(result.exception.toString());
-          }
-
-          if (result.isLoading) {
-            return const Text('Loading');
           }
 
           List? repositories = result.data?['favoriteBooks'];
@@ -57,9 +51,9 @@ class _FavoriteBooksState extends State<FavoriteBooks> {
                   //     },
                     return InkWell(
                       onTap: ( ) {
-                        Navigator.of(context).push(
+                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) =>
-                          DetailPage()
+                          new DetailPage(bookid: '${repositories[index]['id']}')
                           )
                         );
                       },
@@ -87,12 +81,12 @@ class _FavoriteBooksState extends State<FavoriteBooks> {
 
                             Container(
                                 height: 36,
-                                width: 136,
+                                width: 124,
                                    child:
                                     ItemTittleText(text: repositories[index]['name']),
                                    //ItemTittleText(text: "O duque e eu (Os Bridgertons e o almanaque servio")
                                 ),
-                            ItemTittleText(text: repositories[index]['author']['name'])
+                            ItemSubtitleText(text: repositories[index]['author']['name'])
                             //ItemSubtitleText(text: "Jobert Cecil Martin")
 
                             // ItemTittleText(text: repositories[index]['name']),

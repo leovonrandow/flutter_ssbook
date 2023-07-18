@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'Queries.dart';
+import '../Queries.dart';
 
 class UserIcon extends StatefulWidget {
   const UserIcon({super.key});
@@ -46,7 +46,7 @@ class _UserIconState extends State<UserIcon> {
                 color: Colors.grey,
                 image: DecorationImage(
                     image: NetworkImage(
-                        '${picture ?? ''}'
+                        '${picture}'
                     ),
                     fit: BoxFit.cover
                 )

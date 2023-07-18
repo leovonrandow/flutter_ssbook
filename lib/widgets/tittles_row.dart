@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ssbook/widgets/Texts/app_large_text.dart';
 import 'package:flutter_ssbook/widgets/Texts/item_subtitltte_text.dart';
-import 'package:flutter_ssbook/widgets/Texts/tab_bar_text.dart';
 
 import '../theme/app_theme_colors.dart';
 

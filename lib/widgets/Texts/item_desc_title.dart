@@ -15,12 +15,15 @@ class ItemDescTittle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: AppColors.colors.grey,
-        fontSize: size,
-        fontWeight: FontWeight.w700,
+    return Expanded(
+      child: Text(
+        text,
+        softWrap: true,
+        style: TextStyle(
+          color: AppColors.colors.grey,
+          fontSize: size,
+          fontWeight: FontWeight.w700,
+        ),
       ),
     );
   }
